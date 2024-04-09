@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'poppins', sans-serif;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calculator {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .calculator form {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 5px;
+        }
+
+        .calculator form input {
+            border: 0;
+            outline: 0;
+            width: 100%;
+            height: 60px;
+            border-radius: 10px;
+            box-shadow: -8px -8px 15px rgba(0, 0, 0, 0.1), 5px 5px 15px rgba(225, 225, 225, 0.1);
+            background: transparent;
+            font-size: 20px;
+            color: #403c3c;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        form .display {
+            grid-column: span 4;
+            display: flex;
+            justify-content: flex-end;
+            margin: 20px 0;
+        }
+
+        form .display input {
+            text-align: right;
+            flex: 1;
+            font-size: 45px;
+            box-shadow: none;
+        }
+
+        form input.equal {
+            grid-column: span 3;
+            
+        }
+
+        form input.zero {
+            grid-column: span 2;
+        }
+
+        form input.pluse {
+            grid-column: span 1;
+            color: aqua;
+        }
+
+        form input.color {
+            color: black;
+        }
+
+        form input.operator {
+            color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="calculator">      
+        <form>
+            <div class="display">
+                <input type="text" name="display">
+            </div>
+            <input type="button" value="AC" onclick="clearDisplay()" class="operator">
+            <input type="button" value="DEL" onclick="deleteLast()" class="operator">
+            <input type="button" value="%" onclick="calculatePercentage()" class="operator">
+            <input type="button" value="/" onclick="appendToDisplay('/')" class="operator">
+            <input type="button" value="7" onclick="appendToDisplay('7')" class="color">
+            <input type="button" value="8" onclick="appendToDisplay('8')" class="color">
+            <input type="button" value="9" onclick="appendToDisplay('9')" class="color">
+            <input type="button" value="*" onclick="appendToDisplay('*')" class="operator">
+            <input type="button" value="4" onclick="appendToDisplay('4')" class="color">
+            <input type="button" value="5" onclick="appendToDisplay('5')" class="color">
+            <input type="button" value="6" onclick="appendToDisplay('6')" class="color">
+            <input type="button" value="-" onclick="appendToDisplay('-')" class="operator">
+            <input type="button" value="1" onclick="appendToDisplay('1')" class="color">
+            <input type="button" value="2" onclick="appendToDisplay('2')" class="color">
+            <input type="button" value="3" onclick="appendToDisplay('3')" class="color">
+            <input type="button" value="+" onclick="appendToDisplay('+')" class="pluse">
+            <input type="button" value="0" onclick="appendToDisplay('0')" class="color">
+            <input type="button" value="." onclick="addDecimal()" class="color">
+            <input type="button" value="00" onclick="appendToDisplay('00')" class="zero operator">
+            <input type="button" value="=" onclick="evaluateExpression()" class="equal operator">
+        </form>
+    </div>
+</div>
+
+<script>
+    function appendToDisplay(value) {
+        document.forms[0].display.value += value;
+    }
+
+    function addDecimal() {
+        const display = document.forms[0].display;
+        if (!display.value.includes('.')) {
+            display.value += '.';
+        }
+    }
+
+    function clearDisplay() {
+        document.forms[0].display.value = '';
+    }
+
+    function deleteLast() {
+        const display = document.forms[0].display;
+        display.value = display.value.slice(0, -1);
+    }
+
+    function evaluateExpression() {
+        const display = document.forms[0].display;
+        display.value = eval(display.value);
+    }
+
+    function calculatePercentage() {
+        const display = document.forms[0].display;
+        display.value = eval(display.value) / 100;
+    }
+</script>
+</body>
+</html>
